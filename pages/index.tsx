@@ -6,8 +6,16 @@ import { extract } from "letterparser";
 import { useState } from "react";
 
 export default function Home() {
+  interface LetterInf {
+    to: string;
+    from: string;
+    subject: string;
+    date: string;
+    html: string;
+  }
+
   const [mime, setMime] = useState("");
-  const [Html, setHtml] = useState("");
+  const [Html, setHtml] = useState({} as LetterInf);
   return (
     <div className={styles.container}>
       <Head>
@@ -30,6 +38,7 @@ export default function Home() {
             <button
               onClick={async () => {
                 const html = await extract(mime);
+                //@ts-ignore @TODO: fix this
                 setHtml(html);
               }}
             >
